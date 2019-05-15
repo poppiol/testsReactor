@@ -84,4 +84,14 @@ public class WashingMachineTest {
         assertThat("should return Result.Succes", status.getResult(), is(Result.SUCCESS));
     }
 
+    @Test
+    public void WashingMachineTestStartMethodWhenMaterialIsCOTTONAndWeightKgIsLessThanMaxWeightKg() {
+        laundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(5).build();
+        programConfiguration = programConfiguration.builder().withProgram(Program.MEDIUM).withSpin(true).build();
+
+        washingMachine = new WashingMachine(dirtDetector, engine, waterPump);
+        status = washingMachine.start(laundryBatch, programConfiguration);
+
+        assertThat("should return Result.Succes", status.getResult(), is(Result.SUCCESS));
+    }
 }
