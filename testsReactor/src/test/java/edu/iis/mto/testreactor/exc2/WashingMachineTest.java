@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,6 +23,8 @@ public class WashingMachineTest {
         dirtDetector = mock(DirtDetector.class);
         engine = mock(Engine.class);
         waterPump = mock(WaterPump.class);
+        programConfiguration = programConfiguration.builder().withProgram(Program.MEDIUM).withSpin(true).build();
+
     }
 
     @Test
@@ -54,7 +55,6 @@ public class WashingMachineTest {
     @Test
     public void WashingMachineTestStartMethodWhenMaterialIsWOOLAndWeightKgIsMoreThanMaxWeightKg() {
         laundryBatch = laundryBatch.builder().withType(Material.WOOL).withWeightKg(5).build();
-        programConfiguration = programConfiguration.builder().withProgram(Program.MEDIUM).withSpin(true).build();
 
         washingMachine = new WashingMachine(dirtDetector, engine, waterPump);
         status = washingMachine.start(laundryBatch, programConfiguration);
@@ -65,7 +65,6 @@ public class WashingMachineTest {
     @Test
     public void WashingMachineTestStartMethodWhenMaterialIsCOTTONAndWeightKgIsMoreThanMaxWeightKg() {
         laundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(9).build();
-        programConfiguration = programConfiguration.builder().withProgram(Program.MEDIUM).withSpin(true).build();
 
         washingMachine = new WashingMachine(dirtDetector, engine, waterPump);
         status = washingMachine.start(laundryBatch, programConfiguration);
@@ -76,7 +75,6 @@ public class WashingMachineTest {
     @Test
     public void WashingMachineTestStartMethodWhenMaterialIsWOOLAndWeightKgIsLessThanMaxWeightKg() {
         laundryBatch = laundryBatch.builder().withType(Material.WOOL).withWeightKg(2).build();
-        programConfiguration = programConfiguration.builder().withProgram(Program.MEDIUM).withSpin(true).build();
 
         washingMachine = new WashingMachine(dirtDetector, engine, waterPump);
         status = washingMachine.start(laundryBatch, programConfiguration);
@@ -87,7 +85,6 @@ public class WashingMachineTest {
     @Test
     public void WashingMachineTestStartMethodWhenMaterialIsCOTTONAndWeightKgIsLessThanMaxWeightKg() {
         laundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(5).build();
-        programConfiguration = programConfiguration.builder().withProgram(Program.MEDIUM).withSpin(true).build();
 
         washingMachine = new WashingMachine(dirtDetector, engine, waterPump);
         status = washingMachine.start(laundryBatch, programConfiguration);
@@ -95,10 +92,11 @@ public class WashingMachineTest {
         assertThat("should return Result.Succes", status.getResult(), is(Result.SUCCESS));
     }
 
-    @Test(expected = WeightKgIsNegative.class)
+    @Test(expected = WeightKgIsNegativeException.class)
     public void WashingMachineTestStartMethodWhenWeightKgIsNegative() {
         laundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(-5).build();
     }
+
 
 
 }
