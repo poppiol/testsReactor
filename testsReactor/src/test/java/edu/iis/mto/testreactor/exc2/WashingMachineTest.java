@@ -41,5 +41,10 @@ public class WashingMachineTest {
         new WashingMachine(null, engine, waterPump);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void WashingMachineTestConstructorWhereEngineIsNull() {
+        new WashingMachine(dirtDetector, null, waterPump);
+    }
+
 
 }
