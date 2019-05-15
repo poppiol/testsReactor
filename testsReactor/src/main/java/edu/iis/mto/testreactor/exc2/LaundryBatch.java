@@ -37,6 +37,9 @@ public class LaundryBatch {
         private Builder() {}
 
         public Builder withWeightKg(double weightKg) {
+            if (weightKg<0){
+                throw new WeightKgIsNegative();
+            }
             this.weightKg = weightKg;
             return this;
         }

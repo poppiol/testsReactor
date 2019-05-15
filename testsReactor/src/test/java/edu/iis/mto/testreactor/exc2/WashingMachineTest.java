@@ -94,4 +94,11 @@ public class WashingMachineTest {
 
         assertThat("should return Result.Succes", status.getResult(), is(Result.SUCCESS));
     }
+
+    @Test(expected = WeightKgIsNegative.class)
+    public void WashingMachineTestStartMethodWhenWeightKgIsNegative() {
+        laundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(-5).build();
+    }
+
+
 }
