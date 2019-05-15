@@ -10,13 +10,13 @@ import org.junit.Test;
 
 public class WashingMachineTest {
 
-    DirtDetector dirtDetector;
-    Engine engine;
-    WaterPump waterPump;
-    LaundryBatch laundryBatch;
-    ProgramConfiguration programConfiguration;
-    WashingMachine washingMachine;
-    LaundryStatus status;
+    private DirtDetector dirtDetector;
+    private Engine engine;
+    private WaterPump waterPump;
+    private LaundryBatch laundryBatch;
+    private ProgramConfiguration programConfiguration;
+    private WashingMachine washingMachine;
+    private LaundryStatus status;
 
     @Before
     public void init() {
@@ -97,6 +97,15 @@ public class WashingMachineTest {
         laundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(-5).build();
     }
 
+    @Test
+    public void WashingMachineTestStartMethodShouldReturnCallLaundryBatchTwoTimes() {
+        laundryBatch = mock(LaundryBatch.class);
+
+        washingMachine = new WashingMachine(dirtDetector, engine, waterPump);
+        status = washingMachine.start(laundryBatch, programConfiguration);
+
+        verify(laundryBatch, times(2)).getType();
+    }
 
 
 }
