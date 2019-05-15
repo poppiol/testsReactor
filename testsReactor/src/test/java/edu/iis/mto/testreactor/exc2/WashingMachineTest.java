@@ -17,6 +17,7 @@ public class WashingMachineTest {
     private ProgramConfiguration programConfiguration;
     private WashingMachine washingMachine;
     private LaundryStatus status;
+    private Percentage percentage;
 
     @Before
     public void init() {
