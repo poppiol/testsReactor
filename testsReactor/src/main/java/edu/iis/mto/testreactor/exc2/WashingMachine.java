@@ -23,7 +23,7 @@ public class WashingMachine {
         }
         Program programToRun = specifyProgram(laundryBatch, programConfiguration);
         runProgram(laundryBatch, programToRun);
-        spin(programConfiguration);
+        spin(programConfiguration, laundryBatch.getType());
         return programFinished(programToRun);
     }
 
@@ -63,8 +63,8 @@ public class WashingMachine {
         waterPump.release();
     }
 
-    private void spin(ProgramConfiguration programConfiguration) {
-        if (programConfiguration.isSpin()) {
+    private void spin(ProgramConfiguration programConfiguration, Material material) {
+        if (programConfiguration.isSpin() && material != Material.DELICATE) {
             engine.spin();
         }
     }
